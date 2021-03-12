@@ -1,0 +1,85 @@
+body {
+  background-color: #212529 !important;
+}
+.texto-cabecera {
+  font-family: "Caveat", cursive;
+  color: tomato !important;
+}
+
+.texto-cabecera:hover {
+  color: rgb(241, 68, 38) !important;
+}
+
+.card-title {
+  color: tomato !important;
+  font-family: "Caveat", cursive;
+  font-size: 25px;
+}
+
+.card-title:hover {
+  color: rgb(241, 68, 38) !important;
+}
+
+.add-post {
+  color: tomato !important;
+  font-family: "Caveat", cursive;
+}
+
+.add-post:hover {
+  color: rgb(241, 68, 38) !important;
+}
+
+h3 {
+  font-family: "Caveat", cursive;
+}
+
+.boton {
+  margin-left: 10px;
+  width: 120px;
+  border-radius: 5px;
+  padding: 4px;
+  background-color: #212529;
+  border: 1px solid tomato;
+  color: tomato;
+  transition-delay: 0.1s;
+}
+
+.boton:hover {
+  transition: 0.1s;
+  background-color: tomato;
+  color: white;
+}
+
+.boton-eliminar {
+  transition: 0.1s;
+  background-color: tomato;
+  color: white;
+}
+
+.boton-eliminar:hover {
+  transition: 0.1s;
+  background-color: rgb(236, 130, 111);
+  color: white;
+}
+
+.dropdown-item {
+  border: none;
+  color: tomato !important;
+  font-family: "Caveat", cursive;
+  font-size: 15px;
+}
+
+.dropdown-item:hover {
+  border: none;
+  background: tomato;
+  color: white !important;
+}
+
+.card-colors {
+  background-color: #343a40;
+  color: white;
+}
+
+.card {
+  border: none !important;
+}

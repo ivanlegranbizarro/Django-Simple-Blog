@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/cfc5da4bfc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mx-5 fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand texto-cabecera fs-2" href="{% url 'home' %}">TODOS LOS PÁJAROS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link 
+                        {% ifequal '/' request.path  %} 
+                            active
+                        {% endifequal %}
+                            " aria-current="page" href="{% url 'home' %}">Inicio</a>
+                    </li>
+
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link 
+                        {% ifequal '/members/login/' request.path %}  %} 
+                            active
+                        {% endifequal %}
+                            " href="{% url 'login' %}">Loguéate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link 
+                        {% ifequal '/contact/' request.path %} 
+                            active
+                        {% endifequal %}
+                            " href="{% url 'contact' %}">Contáctame</a>
+                    </li>
+                    {% elif user.is_authenticated%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Desloguéate</a>
+                    </li>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link 
+                        {% ifequal '/add-post/' request.path  %} 
+                            active
+                        {% endifequal %}
+                            " href="{% url 'add-post' %}">Añadir post</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle 
+                        {% if not cat_menu %}
+                            disabled
+                        {% endif %}
+                            " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdown">
+                            {% for item in cat_menu %}
+                            <li><a class="dropdown-item" href="{% url 'category-post' item.id %}">{{item.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" method="get" action="{% url 'post-search' %}"> {% csrf_token %}
+                    <input class="form-control me-2" type="search" id="kword" name="kword"
+                        placeholder="Busca tu post favorito" aria-label="Search">
+                    <button class="boton" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="container py-4 my-5">
+
+        {% block content %}
+
+        {% endblock content %}
+    </main>
+
+    <!-- Modal para Telegram -->
+
+    <footer class="page-footer bg-dark text-white py-5 my-5">
+        <div class="container text-center text-md-left">
+            <div class="row" style="margin-top: 300px">
+                <div class="col-md-12 mx-auto mb-4">
+                    <h6 class="text-uppercase font-weight-bold">Iván Legrán &copy;</h6>
+                    <hr class="mb-2 mt-0 d-inline-block mx-auto"
+                        style="width:125px; height:3px; background-color: tomato;">
+                    <div class="row d-flex">
+                        <div class="col-md-12 text-center">
+                            <a href="https://github.com/ivanlegranbizarro/Django-Simple-Blog" target="_blank"><i
+                                    class="fab fa-github text-white mx-4 fs-3"></i></a>
+                            <i class="fab fa-telegram-plane text-white me-4 fs-3" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" style="cursor: pointer;"></i>
+                        </div>
+                        <hr class="mb-2 mt-2 d-inline-block mx-auto"
+                            style="width:125px; height:3px; background-color: tomato;">
+                    </div>
+
+                    <p class="mt-2">¡Hola! Si te gusta mi poesía o mi blog, no dudes en contactar conmigo por Telegram o
+                        en curiosear mi código en GitHub</p>
+                    <hr class="mb-2 mt-2 d-inline-block mx-auto"
+                        style="width:125px; height:3px; background-color: tomato;">
+                    <p>Todo el código de este blog está escrito por mí con mucho <i class="fab fa-python"></i>,
+                    </p>un poco de <i class="fab fa-bootstrap"></i> y algunos toques de <i class="fab fa-css3"></i>
+                    casero
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #212529; color: white;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agrégame a Telegram</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="background-color: tomato;"></button>
+                </div>
+                <div class="modal-body">
+                    @ivanlegran
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

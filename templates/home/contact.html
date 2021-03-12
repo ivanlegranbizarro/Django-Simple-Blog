@@ -1,0 +1,55 @@
+{% extends '../base.html' %}
+
+
+{% block title %}
+Contacta conmigo
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+{% if not message %}
+<div class="row my-5 justify-content-center">
+    <div class="col-auto">
+        <h3 class="card-title" style="color:white !important; font-size: 30px;">Contacta conmigo</h3>
+    </div>
+</div>
+<div class="row my-5 justify-content-center">
+    <div class="col-auto" style="color: white !important;">
+        <p class="lead">¿Crees que mis <i>pájaros</i> merecen ser publicados en papel?</p>
+        <p class="lead">¿Quieres invitarme a una Voll-Damm?</p>
+    </div>
+</div>
+<div class="row my-5 justify-content-center">
+    <div class="col-sm-12 col-md-8" style="color:white !important">
+        <form method="post">{% csrf_token %}
+            <div class="mb-3">
+                <label for="from_email" class="form-label">Tu email*</label>
+                <input type="email" class="form-control" name="from_email" id="from_email"
+                    placeholder="Escribe aquí tu email">
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Asunto*</label>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Dime de qué se trata">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Tu mensaje*</label>
+                <textarea class="form-control" name="message" id="message" rows="3"
+                    placeholder="¡No te cortes!"></textarea>
+            </div>
+            <button class="boton" style="height: 40px; width: 70px;" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="row my-5 justify-content-center">
+    <div class="col-auto">
+        <h3 class="card-title" style="color:white !important; font-size: 20px;">Gracias, tu mensaje ya me ha llegado 😁
+        </h3>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

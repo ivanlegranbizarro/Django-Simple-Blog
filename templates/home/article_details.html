@@ -1,0 +1,27 @@
+{% extends '../base.html' %}
+
+{% block title %}
+{{post.title}}
+{% endblock title %}
+
+{% block content %}
+<div class="row my-5 d-flex justify-content-center">
+    <div class="col-xs-12 col-sm-12 col-md-8">
+        <div class="card">
+            <div class="card-body card-colors">
+                <h5 class="card-title text-center text-uppercase mb-5" style="font-size:40px">{{post.title}}</h5>
+                <p class="card-text lead">{{post.body|safe}}</p>
+                <h6 class="card-subtitle mt-5 text-muted text-center">Por <i>{{post.author.first_name}}
+                    {{post.author.last_name}}</i> en <a class="text-decoration-none"
+                    href="{% url 'category-post' post.category.id %}"><i>{{post.category}}</i></a></h6>
+                <h6 class="card-subtitle mb-2 text-muted text-center mt-2">Publicado el {{post.created_at}}</h6>
+                {% if user.is_authenticated %}
+                <a class="btn btn-sm btn-secondary" href="{% url 'update-post' post.pk %}">Editar</a>
+                <a class="btn btn-sm btn-warning ml-2" href="{% url 'delete-post' post.pk %}">Eliminar</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

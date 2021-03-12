@@ -1,0 +1,33 @@
+{% extends '../base.html' %}
+
+{% block blockname %}
+Añade un nuevo post
+{% endblock blockname %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="row my-5 justify-content-center">
+    <div class="col-auto">
+        <h3 class="card-title" style="color:white !important; font-size: 30px;">Añade un nuevo post</h3>
+    </div>
+</div>
+
+<div class="row my-5 justify-content-center" style="color: white !important;">
+    <div class="col-auto">
+        <form method="post">{% csrf_token %}
+            {{form.media}}
+            {{form|crispy}}
+            <button class="boton mt-3" style="height: 40px; width: 70px;" type="submit">Añadir</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="row my-5">
+    <div class="col">
+        <h3 class="card-title">No tienes permiso para ver este contenido</h3>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

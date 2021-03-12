@@ -1,0 +1,24 @@
+{% extends '../base.html' %}
+
+
+{% block title %}
+Login en el blog
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row mt-5 justify-content-center">
+    <div class="col-4">
+        <h3 class="card-title" style="color:white !important;">Loguéate en el blog</h3>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-4">
+        <form method="post">{% csrf_token %}
+            {{form|crispy}}
+            <button class="boton mt-3" style="height: 40px; width: 70px;" type="submit">Entrar</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
